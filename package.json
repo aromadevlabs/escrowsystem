@@ -1,0 +1,15 @@
+{
+  "name": "quantix-escrow",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Quantix Escrow System — protect and license FiveM resources with Discord-only login.",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "setup": "node src/setup.js"
+  },
+  "engines": {
+    "node": ">=18.17"
+  },
+  "dependencies": {}
+}

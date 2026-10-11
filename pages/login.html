@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sign in · Quantix Escrow System</title>
+<link rel="icon" href="/static/img/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/static/css/app.css">
+<style>
+.login-wrap{min-height:100vh;position:relative;overflow:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:48px 16px}
+.login-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 46%;filter:blur(3px) brightness(.45) saturate(1.2)}
+.login-veil{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 50%,rgba(4,6,12,.2),rgba(4,6,12,.92) 75%)}
+.glass{position:relative;z-index:1;width:100%;max-width:460px;padding:48px 36px 32px;display:flex;flex-direction:column;align-items:center;gap:26px;text-align:center;background:rgba(7,11,22,.78);border:1px solid rgba(95,180,255,.22);border-radius:26px;backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);box-shadow:0 40px 120px -40px rgba(47,139,255,.6),inset 0 1px 0 rgba(255,255,255,.06)}
+.logo-ring{position:relative;width:112px;height:112px;margin-top:8px}
+.logo-ring img{width:112px;height:112px;border-radius:50%;animation:qxPulse 3.4s ease-in-out infinite}
+.orbit{position:absolute;inset:-14px;border-radius:50%;border:1px dashed rgba(95,180,255,.45);animation:qxSpin 14s linear infinite}
+.orbit::after{content:"";position:absolute;top:-4px;left:50%;width:8px;height:8px;margin-left:-4px;border-radius:50%;background:#5FB4FF;box-shadow:0 0 12px #5FB4FF}
+.orbit2{position:absolute;inset:-28px;border-radius:50%;border:1px solid rgba(95,180,255,.14);animation:qxSpinR 22s linear infinite}
+.discord-btn{width:100%;min-height:58px;border:0;border-radius:14px;background:var(--discord);color:#fff;font:600 17px var(--body);cursor:pointer;display:flex;align-items:center;justify-content:center;gap:12px;position:relative;overflow:hidden;box-shadow:0 14px 40px -12px rgba(88,101,242,.9);transition:transform .2s,background .2s;text-decoration:none}
+.discord-btn:hover{background:#3C45A5;color:#fff;transform:translateY(-2px)}
+.discord-btn::after{content:"";position:absolute;top:0;bottom:0;left:-60%;width:40%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.3),transparent);transform:skewX(-18deg);transition:left .7s}
+.discord-btn:hover::after{left:130%}
+.note{display:flex;align-items:flex-start;gap:10px;padding:14px;border-radius:12px;background:rgba(4,6,12,.6);border:1px solid rgba(95,180,255,.12);text-align:left;font-size:13px;line-height:1.6;color:var(--muted)}
+.foot{position:relative;z-index:1;margin-top:24px;display:flex;align-items:center;gap:10px;font:500 12px var(--mono);letter-spacing:.1em;color:var(--dim)}
+</style>
+</head>
+<body>
+<div class="login-wrap">
+  <img class="login-bg" src="/static/img/banner.jpg" alt="" aria-hidden="true">
+  <div class="login-veil" aria-hidden="true"></div>
+  <div class="bg-grid" aria-hidden="true"></div>
+
+  <main class="glass in d1">
+    <div class="logo-ring">
+      <div class="orbit2" aria-hidden="true"></div>
+      <div class="orbit" aria-hidden="true"></div>
+      <img src="/static/img/logo.png" alt="Quantix Labs logo">
+    </div>
+    <div class="in d2" style="display:flex;flex-direction:column;gap:6px">
+      <span style="font:700 28px var(--head);letter-spacing:.14em;color:#fff">QUANTIX</span>
+      <span style="font:600 12px var(--head);letter-spacing:.42em;color:var(--accent2)">ESCROW SYSTEM</span>
+    </div>
+    <div class="in d3" style="display:flex;flex-direction:column;gap:8px">
+      <h1 style="margin:0;font:600 24px var(--head);color:#fff">Sign in to continue</h1>
+      <p class="sub" style="font-size:15px">Creators manage escrow assets. Buyers download the assets shared with their Discord account.</p>
+    </div>
+    <a class="discord-btn in d4" href="/auth/discord">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.3 4.4A19.8 19.8 0 0 0 15.4 3l-.3.5c1.6.4 2.9 1 4.3 1.9-1.6-.9-3.4-1.4-5.3-1.6a14.6 14.6 0 0 0-4.3 0C8 4 6.2 4.5 4.6 5.4 6 4.5 7.3 3.9 8.9 3.5L8.6 3a19.8 19.8 0 0 0-4.9 1.4C1.1 8.3.4 12.1.7 15.8a19.9 19.9 0 0 0 6 3c.4-.6.8-1.2 1.1-1.9-.6-.2-1.2-.5-1.8-.9l.4-.3c3.5 1.6 7.3 1.6 10.8 0l.4.3c-.6.4-1.2.7-1.8.9.3.7.7 1.3 1.1 1.9a19.9 19.9 0 0 0 6-3c.4-4.3-.6-8.1-2.6-11.4ZM8.9 13.6c-1.1 0-2.1-1-2.1-2.3s.9-2.3 2.1-2.3 2.1 1 2.1 2.3-1 2.3-2.1 2.3Zm6.2 0c-1.1 0-2.1-1-2.1-2.3s.9-2.3 2.1-2.3 2.1 1 2.1 2.3-.9 2.3-2.1 2.3Z"></path></svg>
+      Continue with Discord
+    </a>
+    <div class="note in d5">
+      <span style="flex-shrink:0;margin-top:2px;color:var(--accent2)"></span>
+      <span id="noteText">Discord is the only way to sign in. We only read your Discord ID, username and avatar — never your messages or servers.</span>
+    </div>
+  </main>
+  <div class="foot in d5"><span class="dot"></span>ENGINEERED BEYOND EXPECTATIONS</div>
+</div>
+<script src="/static/js/app.js"></script>
+<script src="/static/js/login.js"></script>
+</body>
+</html>
