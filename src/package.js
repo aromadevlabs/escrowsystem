@@ -106,7 +106,8 @@ into memory. You can edit any visible file (configs, locales, UI) freely.
 Your license key is tied to your Discord account${grant.boundTo ? ' and server' : ''}.
 Do not share it. Sharing or leaking the key will get the license revoked.
 
-Need help? Contact the ${asset.owner || 'Quantix'} team.
+Need help? Contact the Quantix team.
+Discord: https://discord.gg/quantixlabs
 `;
 }
 
