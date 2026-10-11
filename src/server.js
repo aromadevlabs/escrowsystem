@@ -10,6 +10,7 @@ const auth = require('./auth');
 const assetSvc = require('./assets');
 const grantSvc = require('./grants');
 const { buildBuyerZip } = require('./package');
+const discord = require('./discord');
 
 if (config.problems.length) {
   console.error('\n  Quantix Escrow cannot start — configuration is incomplete:\n');
@@ -91,6 +92,33 @@ router.post('/api/assets', async (req, res) => {
 router.get('/api/assets', (req, res) => {
   auth.requireTeam(req, store);
   res.json(200, { assets: store.assets.map(assetSvc.publicAsset) });
+});
+
+// Upload a new version of an existing asset, then DM every active buyer.
+router.post('/api/assets/:id/update', async (req, res) => {
+  const user = auth.requireTeam(req, store);
+  const asset = store.assets.find((a) => a.id === req.params.id);
+  if (!asset) throw new HttpError(404, 'Asset not found');
+  const { fields, files } = await readMultipart(req);
+  if (!files.file) throw new HttpError(400, 'No file uploaded.');
+  let visible = [];
+  try { visible = JSON.parse(fields.visible || '[]'); } catch { throw new HttpError(400, 'Bad visible list'); }
+  const changelog = (fields.changelog || '').trim();
+  const chosenVisible = (visible.length || fields.visible !== undefined) ? visible : asset.files.filter((f) => f.visible).map((f) => f.path);
+  let updated;
+  try {
+    updated = assetSvc.updateAsset(store, asset, files.file.data, { version: fields.version, description: fields.description, changelog, actor: user.username }, chosenVisible);
+  } catch (e) {
+    if (e instanceof assetSvc.ValidationError) throw new HttpError(400, e.message);
+    throw e;
+  }
+  const buyers = store.grants.filter((g) => g.assetId === asset.id && g.status === 'active');
+  const notify = await discord.notifyUpdate(buyers.map((g) => g.discordId), {
+    assetName: asset.name, version: asset.version, changelog, url: `${config.baseUrl}/app/vault`,
+  });
+  store.audit(user.username, 'asset.update.notify', { assetId: asset.id, ...notify });
+  store.save();
+  res.json(200, { asset: updated, notify, buyers: buyers.length });
 });
 
 router.delete('/api/assets/:id', (req, res) => {

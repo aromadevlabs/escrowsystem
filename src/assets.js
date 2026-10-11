@@ -130,10 +130,44 @@ function openFiles(asset) {
   return readZip(zipBuf).filter((f) => f.name !== '.gitkeep');
 }
 
+/** Re-upload a new version of an existing asset. Keeps the same id and all grants. */
+function updateAsset(store, asset, buf, meta, visible) {
+  const inspected = inspectZip(buf);
+  const visibleSet = new Set(visible || []);
+  const classified = classify(inspected.manifestSrc, inspected.paths, visibleSet);
+
+  const dataKey = newDataKey();
+  const protectedEntries = inspected.files.filter((f) => classified.protectedFiles.includes(f.name));
+  const vaultZip = writeZip(protectedEntries.length ? protectedEntries : [{ name: '.empty', data: '' }]);
+  fs.writeFileSync(path.join(BLOB_DIR, asset.blob), encrypt(dataKey, vaultZip));
+
+  const openEntries = inspected.files.filter((f) => classified.visibleFiles.includes(f.name));
+  const openZip = writeZip(openEntries.length ? openEntries : [{ name: '.gitkeep', data: '' }]);
+  fs.writeFileSync(path.join(BLOB_DIR, asset.open), openZip);
+
+  asset.wrappedKey = wrapKey(config.masterKey, dataKey);
+  asset.files = inspected.paths.map((p) => ({
+    path: p,
+    visible: classified.visibleFiles.includes(p),
+    bucket: classified.protectedFiles.includes(p) ? bucketOf(classified, p) : null,
+  }));
+  asset.protectedCount = classified.protectedFiles.length;
+  asset.visibleCount = classified.visibleFiles.length;
+  const prevVersion = asset.version;
+  if (meta.version) asset.version = String(meta.version).trim();
+  if (meta.description) asset.description = String(meta.description).trim();
+  asset.lastChangelog = meta.changelog || '';
+  asset.updatedAt = new Date().toISOString();
+  asset.updates = (asset.updates || 0) + 1;
+  store.audit(meta.actor || asset.owner, 'asset.update', { assetId: asset.id, from: prevVersion, to: asset.version });
+  store.save();
+  return publicAsset(asset);
+}
+
 function removeAsset(store, asset) {
   for (const f of [asset.blob, asset.open]) {
     try { fs.unlinkSync(path.join(BLOB_DIR, f)); } catch { /* already gone */ }
   }
 }
 
-module.exports = { inspectZip, createAsset, publicAsset, openVault, openFiles, removeAsset, ValidationError };
+module.exports = { inspectZip, createAsset, updateAsset, publicAsset, openVault, openFiles, removeAsset, ValidationError };

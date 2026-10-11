@@ -22,6 +22,8 @@ buyers by their **Discord ID**. Login is **Discord‑only**.
   restore instantly.
 - **Buyer Vault** — buyers sign in with Discord and download their resource; the
   license and loader are already inside.
+- **Updates with Discord DMs** — push a new version of an asset from Resources;
+  every buyer with an active license gets a bot DM to re-download (needs a bot token).
 - **Runtime protection** — the protected Lua never ships to disk. A loader in the
   buyer's resource validates the license with your server and streams the
   protected code into memory. Revoking a license stops it on the next restart.

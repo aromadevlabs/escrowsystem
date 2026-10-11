@@ -10,11 +10,13 @@
 <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/static/css/app.css">
 <style>
-.rtr{display:grid;grid-template-columns:1.3fr 1.4fr .9fr 1fr 1fr 110px;align-items:center;gap:12px;min-height:66px;padding:0 20px;border-top:1px solid rgba(95,180,255,.08);transition:background .25s}
+.rtr{display:grid;grid-template-columns:1.3fr 1.4fr .9fr 1fr 1fr 190px;align-items:center;gap:12px;min-height:66px;padding:0 20px;border-top:1px solid rgba(95,180,255,.08);transition:background .25s}
+.rttable{min-width:980px}
+.upd{min-height:40px;padding:0 12px;border-radius:10px;border:1px solid rgba(95,180,255,.4);background:rgba(47,139,255,.14);color:#A9D6FF;font:600 13px var(--body);cursor:pointer;transition:all .2s;display:inline-flex;align-items:center;gap:6px}
+.upd:hover{background:rgba(47,139,255,.28);color:#fff}
 .rtr.head{min-height:52px;border-top:0;font:600 12px var(--body);letter-spacing:.12em;text-transform:uppercase;color:var(--dim)}
 .rtr.body{opacity:0;animation:qxRow .5s cubic-bezier(.2,.8,.2,1) forwards}
 .rtr.body:hover{background:rgba(47,139,255,.06)}
-.rttable{min-width:900px}
 </style>
 </head>
 <body>
@@ -56,6 +58,19 @@
       <button type="button" class="iconbtn" id="delClose" aria-label="Close"></button>
     </div>
     <div style="padding:24px;display:flex;flex-direction:column;gap:18px" id="delBody"></div>
+  </div>
+</div>
+
+<div class="overlay" id="updOverlay" hidden>
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="updTitle">
+    <div class="mhead">
+      <div style="display:flex;align-items:center;gap:12px">
+        <span style="width:40px;height:40px;border-radius:12px;background:rgba(47,139,255,.18);display:flex;align-items:center;justify-content:center;color:var(--accent2)" id="updIc"></span>
+        <div><h2 id="updTitle" style="margin:0;font:600 20px var(--head);color:#fff">Upload update</h2><span class="dim" style="font-size:13px" id="updSub">Push a new version and notify buyers</span></div>
+      </div>
+      <button type="button" class="iconbtn" id="updClose" aria-label="Close"></button>
+    </div>
+    <div style="padding:24px;display:flex;flex-direction:column;gap:18px" id="updBody"></div>
   </div>
 </div>
 

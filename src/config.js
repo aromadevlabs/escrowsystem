@@ -47,6 +47,8 @@ const config = {
   teamRoleId: need('TEAM_ROLE_ID'),
   masterKey: masterKeyHex ? Buffer.from(masterKeyHex, 'hex') : null,
   sessionSecret,
+  botToken: (process.env.DISCORD_BOT_TOKEN || '').trim(), // optional — enables update DMs
+  supportDiscord: (process.env.SUPPORT_DISCORD || 'https://discord.gg/quantixlabs').trim(),
   storageDir: path.resolve(ROOT, process.env.STORAGE_DIR || 'storage'),
   maxUploadBytes: Math.max(1, parseInt(process.env.MAX_UPLOAD_MB || '50', 10)) * 1024 * 1024,
   trustProxy: /^(1|true|yes)$/i.test(process.env.TRUST_PROXY || ''),
