@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Resources · Quantix</title>
+<link rel="icon" href="/static/img/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/static/css/app.css">
+<style>
+.rtr{display:grid;grid-template-columns:1.3fr 1.4fr .9fr 1fr 1fr 110px;align-items:center;gap:12px;min-height:66px;padding:0 20px;border-top:1px solid rgba(95,180,255,.08);transition:background .25s}
+.rtr.head{min-height:52px;border-top:0;font:600 12px var(--body);letter-spacing:.12em;text-transform:uppercase;color:var(--dim)}
+.rtr.body{opacity:0;animation:qxRow .5s cubic-bezier(.2,.8,.2,1) forwards}
+.rtr.body:hover{background:rgba(47,139,255,.06)}
+.rttable{min-width:900px}
+</style>
+</head>
+<body>
+<div class="shell">
+  <div class="bg-grid" aria-hidden="true"></div><div class="bg-orb" aria-hidden="true"></div>
+  <aside class="sidebar"></aside>
+  <main class="main">
+    <div id="bannerSlot"></div>
+    <header class="phead in d2">
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <span class="kicker">ESCROW / RESOURCES</span>
+        <h1 class="title">Resources</h1>
+        <p class="sub">Every asset locked into escrow, with its creator. Search by creator Discord ID or name, and delete assets you no longer sell.</p>
+      </div>
+      <a href="/app/create" class="btn" id="newBtn">New escrow asset</a>
+    </header>
+
+    <div class="stats in d3" id="stats"></div>
+
+    <section class="card in d4" style="overflow:hidden">
+      <div style="display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:space-between;padding:20px">
+        <div style="position:relative;flex:1 1 260px;max-width:420px">
+          <span style="position:absolute;left:15px;top:15px;color:var(--dim)" id="searchIc"></span>
+          <input id="search" class="input" type="search" placeholder="Search creator Discord ID, name or asset" style="padding-left:44px">
+        </div>
+      </div>
+      <div class="tablewrap"><div class="rttable" id="table"></div></div>
+    </section>
+  </main>
+</div>
+
+<div class="overlay" id="delOverlay" hidden>
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="delTitle" style="max-width:460px">
+    <div class="mhead">
+      <div style="display:flex;align-items:center;gap:12px">
+        <span style="width:40px;height:40px;border-radius:12px;background:rgba(255,92,122,.18);display:flex;align-items:center;justify-content:center;color:#FF9DB0" id="delIc"></span>
+        <div><h2 id="delTitle" style="margin:0;font:600 20px var(--head);color:#fff">Delete asset</h2><span class="dim" style="font-size:13px">This can't be undone</span></div>
+      </div>
+      <button type="button" class="iconbtn" id="delClose" aria-label="Close"></button>
+    </div>
+    <div style="padding:24px;display:flex;flex-direction:column;gap:18px" id="delBody"></div>
+  </div>
+</div>
+
+<script src="/static/js/app.js"></script>
+<script src="/static/js/resources.js"></script>
+</body>
+</html>

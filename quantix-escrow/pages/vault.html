@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>My Assets · Quantix</title>
+<link rel="icon" href="/static/img/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/static/css/app.css">
+</head>
+<body>
+<div class="shell">
+  <div class="bg-grid" aria-hidden="true"></div><div class="bg-orb" aria-hidden="true"></div>
+  <aside class="sidebar"></aside>
+  <main class="main">
+    <div id="bannerSlot"></div>
+    <header class="phead in d2">
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <span class="kicker">YOUR ASSETS</span>
+        <h1 class="title">My Assets</h1>
+        <p class="sub">Every asset shared with your Discord account. Download the resource and your license is inside, ready to drop into your server.</p>
+      </div>
+    </header>
+    <div id="vaultGrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:20px"></div>
+  </main>
+</div>
+<script src="/static/js/app.js"></script>
+<script src="/static/js/vault.js"></script>
+</body>
+</html>

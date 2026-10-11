@@ -1,0 +1,33 @@
+{
+  "assets": [],
+  "grants": [],
+  "users": {
+    "1467063344140779601": {
+      "id": "1467063344140779601",
+      "username": "Jaxtti",
+      "handle": "jaxtti",
+      "avatar": "https://cdn.discordapp.com/avatars/1467063344140779601/94a58e071c09316c47fc6f23dbb6c58d.png?size=64",
+      "team": true,
+      "lastLogin": "2026-10-11T02:55:08.599Z"
+    }
+  },
+  "audit": [
+    {
+      "at": "2026-10-11T03:09:21.778Z",
+      "actor": "Jaxtti",
+      "action": "asset.delete",
+      "detail": {
+        "assetId": "asset_cWHAl1rGqonw"
+      }
+    },
+    {
+      "at": "2026-10-11T02:59:52.524Z",
+      "actor": "Jaxtti",
+      "action": "asset.create",
+      "detail": {
+        "assetId": "asset_cWHAl1rGqonw",
+        "name": "jaxtti_bus"
+      }
+    }
+  ]
+}

@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Create Escrow Asset · Quantix</title>
+<link rel="icon" href="/static/img/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/static/css/app.css">
+</head>
+<body>
+<div class="shell">
+  <div class="bg-grid" aria-hidden="true"></div><div class="bg-orb" aria-hidden="true"></div>
+  <aside class="sidebar"></aside>
+  <main class="main">
+    <div id="bannerSlot"></div>
+    <header class="phead in d2">
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <span class="kicker">ESCROW / CREATE</span>
+        <h1 class="title">Create Escrow Asset</h1>
+        <p class="sub">Upload a FiveM resource, choose which files buyers can see, and lock the rest behind Quantix encryption.</p>
+      </div>
+      <a href="/app/granted" class="ghost">View granted assets</a>
+    </header>
+
+    <div style="display:flex;flex-wrap:wrap;gap:24px;align-items:flex-start">
+      <div style="flex:3 1 520px;min-width:0;display:flex;flex-direction:column;gap:24px">
+
+        <section class="card pad in d3">
+          <div class="secrow"><span class="secnum">01</span><h2 class="sec">Asset details</h2></div>
+          <div class="grid2">
+            <div><label class="lbl" for="f-name">Asset name</label><input id="f-name" class="input" placeholder="qx-dispatch"></div>
+            <div><label class="lbl" for="f-version">Version</label><input id="f-version" class="input" placeholder="1.0.0"></div>
+            <div><label class="lbl" for="f-category">Category</label>
+              <select id="f-category" class="input">
+                <option value="job">Job / Economy</option><option value="vehicles">Vehicles</option>
+                <option value="hud">UI / HUD</option><option value="police">Police / EMS</option>
+                <option value="system">System / API</option><option value="other">Other</option>
+              </select></div>
+            <div><label class="lbl" for="f-price">Price</label><input id="f-price" class="input" placeholder="e.g. $25"></div>
+          </div>
+          <div id="otherWrap" hidden><label class="lbl" for="f-custom">Custom category</label><input id="f-custom" class="input" placeholder="e.g. Housing, Minigames"></div>
+          <div><label class="lbl" for="f-creator">Creator Discord ID · required</label><input id="f-creator" class="input mono" inputmode="numeric" placeholder="123456789012345678"><span class="dim" style="display:block;margin-top:6px;font-size:12px">Shown as the creator on the published asset and to buyers.</span></div>
+          <div><label class="lbl" for="f-desc">Description</label><textarea id="f-desc" class="input" placeholder="What does this script do? Buyers see this in their assets."></textarea></div>
+          <div style="display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:12px;background:var(--panel2);border:1px solid var(--line)">
+            <span class="chip on" style="cursor:default" id="platChip"></span>
+            <span class="dim" style="font-size:13px">Built for FiveM servers · fx_version cerulean · lua54</span>
+          </div>
+        </section>
+
+        <section class="card pad in d4">
+          <div class="secrow"><span class="secnum">02</span><h2 class="sec">Upload resource</h2></div>
+          <label class="drop" id="drop">
+            <svg class="border" aria-hidden="true"><rect x="1" y="1" width="99.4%" height="98%" rx="16" ry="16"></rect></svg>
+            <span class="ic" id="dropIc"></span>
+            <span style="font:600 18px var(--head);color:#fff">Drop your resource .zip here</span>
+            <span class="muted" style="font-size:14px">or <span style="color:var(--accent2);text-decoration:underline">browse files</span> · .zip up to 50 MB</span>
+            <input id="file" type="file" accept=".zip" hidden>
+          </label>
+          <div id="uploadInfo"></div>
+        </section>
+
+        <section class="card pad in d5" id="protectSec" hidden>
+          <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px">
+            <div class="secrow"><span class="secnum">03</span><h2 class="sec">What buyers can see</h2></div>
+            <div style="display:flex;gap:8px"><span class="tag" id="hiddenCount">0 hidden</span><span class="tag warn" id="visibleCount">0 visible</span></div>
+          </div>
+          <p class="muted" style="margin:0;font-size:14px;line-height:1.6">Pick which files buyers can open and edit. Hidden files are encrypted — they still run on the buyer's server but can't be read or copied. Only referenced <span class="mono">.lua</span> files can be locked; everything else always ships visible.</p>
+          <div style="display:flex;flex-wrap:wrap;gap:8px">
+            <button type="button" class="ghost" data-preset="configs">Configs &amp; locales only</button>
+            <button type="button" class="ghost" data-preset="all">Hide everything</button>
+            <button type="button" class="ghost" data-preset="none">Show everything</button>
+          </div>
+          <div id="fileList" style="display:flex;flex-direction:column;gap:10px"></div>
+        </section>
+      </div>
+
+      <div style="flex:2 1 320px;min-width:0;display:flex;flex-direction:column;gap:24px">
+        <section class="card in d4" style="overflow:hidden" id="manifestCard" hidden>
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:16px 20px;border-bottom:1px solid rgba(95,180,255,.12)">
+            <span class="mono" style="font-weight:600;font-size:13px;color:#CFE2FF">fxmanifest.lua</span>
+            <span class="dim" style="font-size:12px">escrow preview</span>
+          </div>
+          <div style="padding:18px 20px;background:#050913"><pre class="code" id="manifestPreview"></pre></div>
+        </section>
+
+        <section class="card pad scanwrap in d5" id="publishCard" hidden>
+          <div class="secrow"><h2 class="sec">Encrypt &amp; publish</h2></div>
+          <div id="publishBody"></div>
+        </section>
+      </div>
+    </div>
+  </main>
+</div>
+<script src="/static/js/app.js"></script>
+<script src="/static/js/create.js"></script>
+</body>
+</html>

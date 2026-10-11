@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Granted Assets · Quantix</title>
+<link rel="icon" href="/static/img/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/static/css/app.css">
+</head>
+<body>
+<div class="shell">
+  <div class="bg-grid" aria-hidden="true"></div><div class="bg-orb" aria-hidden="true"></div>
+  <aside class="sidebar"></aside>
+  <main class="main">
+    <div id="bannerSlot"></div>
+    <header class="phead in d2">
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <span class="kicker">ESCROW / GRANTED</span>
+        <h1 class="title">Granted Assets</h1>
+        <p class="sub">Every license you've handed out, who holds it, and whether it's still live. Revoke a key instantly if something looks off.</p>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:10px">
+        <a href="/app/grant" class="ghost">Grant asset</a>
+        <button type="button" class="btn" id="shareTop">Share asset</button>
+      </div>
+    </header>
+
+    <div class="stats in d3" id="stats"></div>
+
+    <section class="card in d4" style="overflow:hidden">
+      <div style="display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:space-between;padding:20px">
+        <div style="position:relative;flex:1 1 260px;max-width:380px">
+          <span style="position:absolute;left:15px;top:15px;color:var(--dim)"></span>
+          <input id="search" class="input" type="search" placeholder="Search asset or Discord ID" style="padding-left:44px">
+        </div>
+        <div id="filters" style="display:flex;flex-wrap:wrap;gap:8px"></div>
+      </div>
+      <div class="tablewrap"><div class="ttable" id="table"></div></div>
+    </section>
+  </main>
+</div>
+
+<div class="overlay" id="shareOverlay" hidden>
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="shareTitle">
+    <div class="mhead">
+      <div style="display:flex;align-items:center;gap:12px">
+        <span style="width:40px;height:40px;border-radius:12px;background:rgba(71,82,196,.25);display:flex;align-items:center;justify-content:center;color:#C3C9FF" id="shareIc"></span>
+        <div><h2 id="shareTitle" style="margin:0;font:600 20px var(--head);color:#fff">Share locked asset</h2><span class="dim" style="font-size:13px">Give buyers access by Discord ID</span></div>
+      </div>
+      <button type="button" class="iconbtn" id="shareClose" aria-label="Close"></button>
+    </div>
+    <div id="shareBody" style="padding:24px;display:flex;flex-direction:column;gap:20px"></div>
+  </div>
+</div>
+
+<script src="/static/js/app.js"></script>
+<script src="/static/js/granted.js"></script>
+</body>
+</html>

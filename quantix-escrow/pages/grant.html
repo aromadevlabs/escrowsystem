@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Grant Assets · Quantix</title>
+<link rel="icon" href="/static/img/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/static/css/app.css">
+</head>
+<body>
+<div class="shell">
+  <div class="bg-grid" aria-hidden="true"></div><div class="bg-orb" aria-hidden="true"></div>
+  <aside class="sidebar"></aside>
+  <main class="main">
+    <div id="bannerSlot"></div>
+    <header class="phead in d2">
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <span class="kicker">ESCROW / GRANT</span>
+        <h1 class="title">Grant Assets</h1>
+        <p class="sub">Give a buyer access to a locked asset by their Discord ID. They download it from their assets after signing in with Discord.</p>
+      </div>
+      <a href="/app/create" class="ghost">New escrow asset</a>
+    </header>
+
+    <div style="display:flex;flex-wrap:wrap;gap:24px;align-items:flex-start">
+      <div style="flex:3 1 520px;min-width:0;display:flex;flex-direction:column;gap:24px">
+        <section class="card pad in d3">
+          <div class="secrow"><span class="secnum">01</span><h2 class="sec">Choose an asset</h2></div>
+          <div id="assetGrid" class="grid2" style="gap:14px"></div>
+        </section>
+        <section class="card pad in d4">
+          <div class="secrow"><span class="secnum">02</span><h2 class="sec">Buyer &amp; license</h2></div>
+          <div><label class="lbl" for="g-id">Buyer Discord ID · required</label><input id="g-id" class="input mono" inputmode="numeric" placeholder="123456789012345678"></div>
+          <div>
+            <span class="lbl">License term</span>
+            <div style="display:flex;flex-wrap:wrap;gap:10px" id="termRow"></div>
+          </div>
+          <div><label class="lbl" for="g-note">Internal note</label><textarea id="g-note" class="input" placeholder="Order #, only your team sees this"></textarea></div>
+        </section>
+      </div>
+
+      <div style="flex:2 1 320px;min-width:0;display:flex;flex-direction:column;gap:22px">
+        <span class="lbl in d3" style="margin:0">License preview</span>
+        <div class="in d4" id="licenseCard"></div>
+        <button type="button" class="btn in d5" id="grantBtn" style="width:100%"></button>
+        <div class="card pad in d6" style="flex-direction:row;gap:12px;align-items:flex-start">
+          <span style="flex-shrink:0;margin-top:2px;color:var(--warn)" id="warnIc"></span>
+          <span class="muted" style="font-size:13px;line-height:1.6">Granted assets can be revoked any time from Granted Assets — the buyer's server stops loading the protected code on its next restart.</span>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+<script src="/static/js/app.js"></script>
+<script src="/static/js/grant.js"></script>
+</body>
+</html>
